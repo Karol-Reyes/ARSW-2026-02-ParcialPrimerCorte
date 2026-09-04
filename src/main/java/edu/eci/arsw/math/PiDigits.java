@@ -1,5 +1,9 @@
 package edu.eci.arsw.math;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.*;
+
 ///  <summary>
 ///  An implementation of the Bailey-Borwein-Plouffe formula for calculating hexadecimal
 ///  digits of pi.
@@ -56,33 +60,33 @@ public class PiDigits {
      * @param count The number of digits to return
      * @param n The number of threads
      * @return An array containing the hexadecimal digits.
-     */
+          * **/
     public static byte[] getDigits(int start, int count, int n) {
-        if (start < 0) {
-            throw new RuntimeException("Invalid Interval");
-        }
+        int interval = count / n;
+        int residual = count % n;
+        List<DigitsThread> threads = new ArrayList<>();
+        int position = start;
 
-        if (count < 0) {
-            throw new RuntimeException("Invalid Interval");
+        for (int i=0 ; i < n; i++) {
+            int tmn = interval + (i == n-1 ? residual : 0);
+            DigitsThread thread = new DigitsThread(position, tmn);
+
+            thread.start();
+            threads.add(thread);
+            position += tmn;
         }
 
         byte[] digits = new byte[count];
-        double sum = 0;
-
-        for (int i = 0; i < count; i++) {
-            if (i % DigitsPerSum == 0) {
-                sum = 4 * sum(1, start)
-                        - 2 * sum(4, start)
-                        - sum(5, start)
-                        - sum(6, start);
-
-                start += DigitsPerSum;
+        int sum = 0;
+        for (DigitsThread hilo : threads) {
+            hilo.join();
+            byte[] parcial = hilo.getResult();
+            for (int j = 0 ; j < parcial.length ; j++) {
+                digits[sum] = parcial[j];
+                sum++;
             }
-
-            sum = 16 * (sum - Math.floor(sum));
-            digits[i] = (byte) sum;
+            
         }
-
         return digits;
     }
 

@@ -5,15 +5,15 @@ public class DigitsThread extends Thread {
     private final int start;
     private final int nums;
     private byte[] result;
+    private int n;
 
     public DigitsThread(int start, int nums){
         this.start = start;
         this.nums = nums;
     }
 
-    @Override
     public void run() {
-        byte[] digit = PiDigits.getDigits(start, nums);
+       result = PiDigits.getDigits(start, nums, n);
     }
 
     public byte[] getResult() {
