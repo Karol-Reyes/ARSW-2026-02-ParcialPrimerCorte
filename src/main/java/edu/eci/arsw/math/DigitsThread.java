@@ -1,9 +1,9 @@
 package edu.eci.arsw.math;
 
-public class DigitsThread extend Thread {
+public class DigitsThread extends Thread {
 
-    private int start;
-    private int nums;
+    private final int start;
+    private final int nums;
     private byte[] result;
 
     public DigitsThread(int start, int nums){
@@ -13,7 +13,7 @@ public class DigitsThread extend Thread {
 
     @Override
     public void run() {
-        return digit = PiDigits.getDigits(start, nums);
+        byte[] digit = PiDigits.getDigits(start, nums);
     }
 
     public byte[] getResult() {
