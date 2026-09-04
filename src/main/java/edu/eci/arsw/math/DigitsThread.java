@@ -44,7 +44,7 @@ public class DigitsThread extends Thread {
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
         }
-
+        System.out.println(digits);
         return digits;
     }
 
