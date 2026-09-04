@@ -3,6 +3,8 @@
 ### Arquitecturas de Software - ARSW
 ## Ejercicio Fórmula BBP - Parcial Practico
 
+### Estudiante: Karol Ximena Rodriguez Reyes
+---
 
 **Ejercicio Fórmula BBP**
 
