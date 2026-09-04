@@ -60,8 +60,8 @@ public class PiDigits {
      * @param count The number of digits to return
      * @param n The number of threads
      * @return An array containing the hexadecimal digits.
-          * **/
-    public static byte[] getDigits(int start, int count, int n) {
+        **/
+    public static byte[] getDigits(int start, int count, int n) throws InterruptedException {
         int interval = count / n;
         int residual = count % n;
         List<DigitsThread> threads = new ArrayList<>();
@@ -81,14 +81,15 @@ public class PiDigits {
         for (DigitsThread hilo : threads) {
             hilo.join();
             byte[] parcial = hilo.getResult();
-            for (int j = 0 ; j < parcial.length ; j++) {
+            /**for (int j = 0 ; j < parcial.length ; j++) {
                 digits[sum] = parcial[j];
                 sum++;
-            }
+            }**/
             
         }
         return digits;
     }
+
 
     //-----------------------------------------------------------------------------------------------------
 
